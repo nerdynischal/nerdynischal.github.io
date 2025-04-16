@@ -1,6 +1,7 @@
 body {
   font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
+  flex-direction: column;
   max-width: 50%;
   padding: 72px;
 }
