@@ -2,20 +2,71 @@ body {
   font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
+  background: rgb(255, 255, 255);
   max-width: 50%;
   padding: 72px;
 }
+h1 {
+  font-size: 2rem;
+}
+
+p {
+  color: rgb(45, 45, 45);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
 
 h3 {
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 1rem;
   margin: 0;
   padding: 0;
 }
 
-.project-card {
-  padding: 0px;
-  padding-bottom: 32px;
+section {
+  margin-bottom: 2rem;
+}
+
+.link {
+  width: fit-content;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  text-decoration: none;
+  color: rgb(64, 64, 200);
+}
+
+.link:hover {
+  opacity: 0.9;
+  background-color: rgb(240, 240, 250);
+}
+
+.link > img {
+  width: 16px;
+}
+
+hr {
+  opacity: 0.4;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table tr:not(:last-child) {
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+tr td:first-child {
+  padding-right: 42px;
+}
+
+td {
+  padding: 6px 12px 6px 0px;
 }
