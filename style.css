@@ -59,7 +59,6 @@ hr {
 
 table {
   border-collapse: collapse;
-  width: 100%;
 }
 
 table tr:not(:last-child) {
@@ -67,7 +66,7 @@ table tr:not(:last-child) {
 }
 
 tr td:first-child {
-  padding-right: 4rem;
+  padding-right: 2rem;
   min-width: 380px;
 }
 
