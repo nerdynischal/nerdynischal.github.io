@@ -3,10 +3,11 @@ body {
   display: flex;
   flex-direction: column;
   background: rgb(255, 255, 255);
-  max-width: 50%;
+  max-width: 60%;
   margin: 0;
   padding: 2rem 4rem;
 }
+
 h1 {
   font-size: 2rem;
 }
@@ -58,6 +59,7 @@ hr {
 
 table {
   border-collapse: collapse;
+  width: 100%;
 }
 
 table tr:not(:last-child) {
@@ -66,8 +68,13 @@ table tr:not(:last-child) {
 
 tr td:first-child {
   padding-right: 4rem;
+  min-width: 380px;
 }
 
 td {
   padding: 6px 12px 6px 0px;
+}
+
+.learning-platform {
+  opacity: 0.7;
 }
