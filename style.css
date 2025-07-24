@@ -3,7 +3,6 @@ body {
   display: flex;
   flex-direction: column;
   background: rgb(255, 255, 255);
-  max-width: 60%;
   margin: 0;
   padding: 2rem 4rem;
 }
@@ -26,6 +25,8 @@ h3 {
   font-size: 1rem;
   margin: 0;
   padding: 0;
+  display: inline;
+  margin-right: 1rem;
 }
 
 section {
@@ -33,7 +34,6 @@ section {
 }
 
 .link {
-  width: fit-content;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -53,27 +53,17 @@ section {
   width: 1rem;
 }
 
-hr {
-  opacity: 0.4;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-table tr:not(:last-child) {
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  max-width: 60%;
+  padding-bottom: 4px;
   border-bottom: 1px solid rgb(235, 235, 235);
 }
 
-tr td:first-child {
-  padding-right: 2rem;
-  min-width: 380px;
-}
-
-td {
-  padding: 6px 12px 6px 0px;
-}
-
-.learning-platform {
-  opacity: 0.7;
+.links-wrapper {
+  display: flex;
 }
