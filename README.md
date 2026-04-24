@@ -1,16 +1,103 @@
-# React + Vite
+# 🚀 Personal Portfolio Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, database-driven portfolio built with React, Supabase, and shadcn UI.
+This project dynamically displays my projects and experiments in a clean, structured dashboard.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- 📊 **Dynamic Tables** — Data fetched from Supabase and rendered automatically
+- 🎨 **Modern UI** — Built with shadcn + Tailwind CSS
+- 🔗 **Live Links** — Quick access to source code and live previews
+- ⚡ **Fully Static Deployment** — Hosted on GitHub Pages
+- 🔄 **CI/CD** — Auto-deploy via GitHub Actions
+- 🧩 **Reusable Components** — Scalable table system with configurable columns
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React (Vite)
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Database:** Supabase
+- **Icons:** lucide-react + simple-icons
+- **Deployment:** GitHub Pages (via GitHub Actions)
+
+---
+
+## ⚙️ Setup & Development
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Create environment variables
+
+Create a `.env` file in the root:
+
+```env
+VITE_SUPABASE_URL=your_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
+```
+
+### 4. Run locally
+
+```bash
+npm run dev
+```
+
+---
+
+## 🚀 Deployment
+
+This project uses **GitHub Actions** for automatic deployment.
+
+Every push to `main`:
+
+- builds the project
+- deploys to GitHub Pages
+
+Live site:
+👉 https://nerdynischal.github.io/
+
+---
+
+## 🔐 Security Notes
+
+- Uses Supabase **Row Level Security (RLS)**
+- Only public `SELECT` access is enabled
+- No sensitive keys are exposed
+
+---
+
+## 📌 Future Improvements
+
+- Sorting & filtering
+- Search functionality
+- Dark mode toggle
+- Mobile optimization
+- Animations & transitions
+
+---
+
+## 🙌 Acknowledgements
+
+- Supabase for backend services
+- shadcn/ui for UI components
+- Tailwind CSS for styling
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.
