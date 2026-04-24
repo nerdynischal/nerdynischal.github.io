@@ -1,17 +1,21 @@
 import DatabaseTable from "@/components/DatabaseTable";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function App() {
   return (
     <div className="max-w-5xl mx-auto px-10 py-16 space-y-12">
+      <div className="flex justify-end mb-4">
+        <ThemeToggle />
+      </div>
       <section>
         <h1 className="text-4xl font-bold mb-4">Projects & Experiments</h1>
-        <p className="text-md text-gray-700">
+        <p className="text-md">
           A dashboard for{" "}
           <a
             href="http://nischalthapa.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:no-underline hover:text-blue-600"
+            className="underline hover:no-underline hover:text-orange-400"
           >
             Nischal's
           </a>{" "}
@@ -23,14 +27,14 @@ export default function App() {
       <section>
         <h2 className="text-2xl font-bold mb-2">Frontend Mentor Projects</h2>
         <div className=" mb-2">
-          <p className="text-md text-gray-700 leading-relaxed ">
+          <p className="text-md leading-relaxed ">
             Practicing HTML, CSS & JavaScript by replicating the given design
             briefs in{" "}
             <a
               href="https://www.frontendmentor.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:no-underline hover:text-blue-600"
+              className="underline hover:no-underline hover:text-orange-400"
             >
               Frontend Mentor
             </a>
@@ -47,13 +51,13 @@ export default function App() {
       <section>
         <h2 className="text-2xl font-bold mb-2">Odin Projects</h2>
         <div className="mb-2">
-          <p className="text-md text-gray-700 leading-relaxed">
+          <p className="text-md leading-relaxed">
             All the projects completed as part of{" "}
             <a
               href="https://www.theodinproject.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:no-underline hover:text-blue-600"
+              className="underline hover:no-underline hover:text-orange-400"
             >
               the Odin Project
             </a>{" "}

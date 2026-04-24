@@ -120,10 +120,7 @@ export default function DynamicTable({tableName, columnOrder = []}) {
 
         <TableBody>
           {rows.map((row, rowIndex) => (
-            <TableRow
-              key={rowIndex}
-              className="hover:bg-neutral-50 transition-colors"
-            >
+            <TableRow key={rowIndex} className="transition-colors">
               {columns.map((col) => (
                 <TableCell
                   key={col}
