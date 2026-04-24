@@ -65,6 +65,11 @@ export default function App() {
           columnOrder={["title", "module", "source_url", "preview_url"]}
         />
       </section>
+
+      <footer className="mt-16 border-t pt-6  text-sm text-muted-foreground flex flex-col md:flex-row items-center justify-between gap-2">
+        <p>© Designed and developed by Nischal</p>
+        <p className="text-xs">Built with React, Supabase & shadcn/ui</p>
+      </footer>
     </div>
   );
 }
