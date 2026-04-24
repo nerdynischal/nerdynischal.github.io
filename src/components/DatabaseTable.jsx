@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import {useEffect, useState} from "react";
+import {supabase} from "@/lib/supabase";
 import {
   Table,
   TableBody,
@@ -8,11 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
-import { siGithub } from "simple-icons/icons";
+import {Button} from "@/components/ui/button";
+import {ExternalLink} from "lucide-react";
+import {siGithub} from "simple-icons/icons";
 
-export default function DynamicTable({ tableName }) {
+export default function DynamicTable({tableName, columnOrder = []}) {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ export default function DynamicTable({ tableName }) {
       setLoading(true);
       setError(null);
 
-      const { data, error } = await supabase.from(tableName).select("*");
+      const {data, error} = await supabase.from(tableName).select("*");
 
       if (error) {
         setError(error.message);
@@ -42,10 +42,35 @@ export default function DynamicTable({ tableName }) {
   if (!rows.length) return <p>No data found.</p>;
 
   // Dynamically derive columns from first row
-  const hiddenColumns = ["id"];
-  const columns = Object.keys(rows[0]).filter(
-    (col) => !hiddenColumns.includes(col),
-  );
+  const hiddenColumns = ["id", "module"];
+  const columns = Object.keys(rows[0])
+    .filter((col) => !hiddenColumns.includes(col))
+    .sort((a, b) => {
+      const indexA = columnOrder.indexOf(a);
+      const indexB = columnOrder.indexOf(b);
+
+      if (indexA === -1 && indexB === -1) return 0;
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+
+      return indexA - indexB;
+    });
+
+  const columnStyles = {
+    title: "font-semibold text-base",
+    module: "text-muted-foreground text-sm",
+  };
+
+  const columnRenderers = {
+    title: (row) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="font-semibold text-base">{row.title}</span>
+        {row.module && (
+          <span className="text-xs text-muted-foreground">{row.module}</span>
+        )}
+      </div>
+    ),
+  };
 
   // Simple URL detector
   const isUrl = (value) =>
@@ -67,55 +92,76 @@ export default function DynamicTable({ tableName }) {
     preview_url: ExternalLink,
   };
 
-  return (
-    <Table className="rounded-lg border overflow-hidden">
-      <TableHeader>
-        <TableRow>
-          {columns.map((col) => (
-            <TableHead
-              key={col}
-              className="capitalize py-4 text-muted-foreground text-sm"
-            >
-              {col.replaceAll("_", " ")}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
+  const labelMap = {
+    source_url: "Source",
+    preview_url: "Live Demo",
+  };
 
-      <TableBody>
-        {rows.map((row, rowIndex) => (
-          <TableRow
-            key={rowIndex}
-            className="hover:bg-neutral-50 transition-colors"
-          >
+  const columnWidths = {
+    source_url: "w-[140px]",
+    preview_url: "w-[140px]",
+  };
+
+  return (
+    <div className="w-full table-fixed">
+      <Table className="rounded-lg border overflow-hidden table-fixed w-full">
+        <TableHeader>
+          <TableRow>
             {columns.map((col) => (
-              <TableCell key={col} className="py-3">
-                {isUrl(row[col]) ? (
-                  <a href={row[col]} target="_blank" rel="noopener noreferrer">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="gap-2 rounded-lg"
-                    >
-                      {(() => {
-                        const Icon = linkIcons[col];
-                        return (
-                          <>
-                            {Icon && <Icon className="h-4 w-4" />}
-                            {linkLabels[col] || "Open"}
-                          </>
-                        );
-                      })()}
-                    </Button>
-                  </a>
-                ) : (
-                  <span className="font-semibold">{row[col]}</span>
-                )}
-              </TableCell>
+              <TableHead
+                key={col}
+                className={`capitalize py-4 text-muted-foreground text-sm ${columnWidths[col] || ""}`}
+              >
+                {labelMap[col] || col.replaceAll("_", " ")}
+              </TableHead>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+
+        <TableBody>
+          {rows.map((row, rowIndex) => (
+            <TableRow
+              key={rowIndex}
+              className="hover:bg-neutral-50 transition-colors"
+            >
+              {columns.map((col) => (
+                <TableCell
+                  key={col}
+                  className={`py-3  ${columnWidths[col] || ""}`}
+                >
+                  {isUrl(row[col]) ? (
+                    <a
+                      href={row[col]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="gap-2 rounded-lg whitespace-nowrap"
+                      >
+                        {(() => {
+                          const Icon = linkIcons[col];
+                          return (
+                            <>
+                              {Icon && <Icon className="h-4 w-4" />}
+                              {linkLabels[col] || "Open"}
+                            </>
+                          );
+                        })()}
+                      </Button>
+                    </a>
+                  ) : columnRenderers[col] ? (
+                    columnRenderers[col](row)
+                  ) : (
+                    <span className={columnStyles[col] || ""}>{row[col]}</span>
+                  )}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
