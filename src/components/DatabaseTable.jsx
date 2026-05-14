@@ -78,7 +78,7 @@ export default function DynamicTable({tableName, columnOrder = []}) {
 
   const linkLabels = {
     source_url: "Source",
-    preview_url: "Live Demo",
+    preview_url: "Preview",
   };
 
   const GitHubIcon = () => (
@@ -98,67 +98,127 @@ export default function DynamicTable({tableName, columnOrder = []}) {
   };
 
   const columnWidths = {
-    source_url: "w-[140px]",
-    preview_url: "w-[140px]",
+    source_url: "md:w-[140px]",
+    preview_url: "md:w-[140px]",
   };
 
   return (
-    <div className="w-full table-fixed">
-      <Table className="rounded-lg border overflow-hidden table-fixed w-full">
-        <TableHeader>
-          <TableRow>
-            {columns.map((col) => (
-              <TableHead
-                key={col}
-                className={`capitalize py-4 text-muted-foreground text-sm ${columnWidths[col] || ""}`}
-              >
-                {labelMap[col] || col.replaceAll("_", " ")}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
+    <>
+      {/* MOBILE CARDS */}
+      <div className="md:hidden space-y-4 pt-2">
+        {rows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="rounded-2xl border bg-card p-4 shadow-sm"
+          >
+            {/* TITLE + MODULE */}
+            <div className="mb-4">
+              {columnRenderers.title ? (
+                columnRenderers.title(row)
+              ) : (
+                <h3 className="font-semibold">{row.title}</h3>
+              )}
+            </div>
 
-        <TableBody>
-          {rows.map((row, rowIndex) => (
-            <TableRow key={rowIndex} className="transition-colors">
-              {columns.map((col) => (
-                <TableCell
-                  key={col}
-                  className={`py-3  ${columnWidths[col] || ""}`}
-                >
-                  {isUrl(row[col]) ? (
+            {/* ACTION BUTTONS */}
+            <div className="flex gap-2">
+              {columns
+                .filter((col) => isUrl(row[col]))
+                .map((col) => {
+                  const Icon = linkIcons[col];
+
+                  return (
                     <a
+                      key={col}
                       href={row[col]}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="flex-1"
                     >
                       <Button
-                        size="sm"
                         variant="outline"
-                        className="gap-2 rounded-lg whitespace-nowrap"
+                        className="w-full gap-2 rounded-xl"
                       >
-                        {(() => {
-                          const Icon = linkIcons[col];
-                          return (
-                            <>
-                              {Icon && <Icon className="h-4 w-4" />}
-                              {linkLabels[col] || "Open"}
-                            </>
-                          );
-                        })()}
+                        {Icon && <Icon className="h-4 w-4" />}
+                        {linkLabels[col] || "Open"}
                       </Button>
                     </a>
-                  ) : columnRenderers[col] ? (
-                    columnRenderers[col](row)
-                  ) : (
-                    <span className={columnStyles[col] || ""}>{row[col]}</span>
-                  )}
-                </TableCell>
+                  );
+                })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP TABLE */}
+      <div className="hidden md:block w-full overflow-x-auto">
+        <Table className="table-fixed w-full">
+          <TableHeader>
+            <TableRow>
+              {columns.map((col) => (
+                <TableHead
+                  key={col}
+                  className={`py-4 text-muted-foreground text-sm ${
+                    columnWidths[col] || ""
+                  }`}
+                >
+                  {labelMap[col] ||
+                    col
+                      .replaceAll("_", " ")
+                      .replace(/\b\w/g, (char) => char.toUpperCase())}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHeader>
+
+          <TableBody>
+            {rows.map((row, rowIndex) => (
+              <TableRow
+                key={rowIndex}
+                className="hover:bg-muted/50 transition-colors"
+              >
+                {columns.map((col) => (
+                  <TableCell
+                    key={col}
+                    className={`py-3 ${columnWidths[col] || ""}`}
+                  >
+                    {isUrl(row[col]) ? (
+                      <a
+                        href={row[col]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="gap-2 rounded-lg whitespace-nowrap"
+                        >
+                          {(() => {
+                            const Icon = linkIcons[col];
+
+                            return (
+                              <>
+                                {Icon && <Icon className="h-4 w-4" />}
+                                {linkLabels[col] || "Open"}
+                              </>
+                            );
+                          })()}
+                        </Button>
+                      </a>
+                    ) : columnRenderers[col] ? (
+                      columnRenderers[col](row)
+                    ) : (
+                      <span className={columnStyles[col] || ""}>
+                        {row[col]}
+                      </span>
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
   );
 }
