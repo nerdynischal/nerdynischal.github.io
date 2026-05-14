@@ -1,9 +1,10 @@
 import DatabaseTable from "@/components/DatabaseTable";
 import ThemeToggle from "@/components/ThemeToggle";
+import QuickLinks from "@/components/QuickLinks";
 
 export default function App() {
   return (
-    <div className="max-w-5xl mx-auto px-10 py-16 space-y-12">
+    <div className="max-w-5xl mx-auto px-10 py-16 space-y-16">
       <div className="flex justify-end mb-4">
         <ThemeToggle />
       </div>
@@ -25,8 +26,17 @@ export default function App() {
       </section>
 
       <section>
+        <h2 className="text-2xl font-bold mb-2">Quicklinks</h2>
+        <p className="text-md leading-relaxed mb-6">
+          Some helpful resources that I found useful during my learning journey
+        </p>
+
+        <QuickLinks />
+      </section>
+
+      <section>
         <h2 className="text-2xl font-bold mb-2">Frontend Mentor Projects</h2>
-        <div className=" mb-2">
+        <div className=" mb-6">
           <p className="text-md leading-relaxed ">
             Practicing HTML, CSS & JavaScript by replicating the given design
             briefs in{" "}
@@ -50,7 +60,7 @@ export default function App() {
 
       <section>
         <h2 className="text-2xl font-bold mb-2">Odin Projects</h2>
-        <div className="mb-2">
+        <div className="mb-6">
           <p className="text-md leading-relaxed">
             All the projects completed as part of{" "}
             <a

@@ -9,8 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
-import {ExternalLink} from "lucide-react";
-import {siGithub} from "simple-icons/icons";
+import {Globe, CodeXml} from "lucide-react";
 
 export default function DynamicTable({tableName, columnOrder = []}) {
   const [rows, setRows] = useState([]);
@@ -81,15 +80,9 @@ export default function DynamicTable({tableName, columnOrder = []}) {
     preview_url: "Preview",
   };
 
-  const GitHubIcon = () => (
-    <svg role="img" viewBox="0 0 24 24" className="h-4 w-4 fill-current">
-      <path d={siGithub.path} />
-    </svg>
-  );
-
   const linkIcons = {
-    source_url: GitHubIcon,
-    preview_url: ExternalLink,
+    source_url: CodeXml,
+    preview_url: Globe,
   };
 
   const labelMap = {
